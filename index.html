@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VIDA – Track your life like a stock</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="VIDA turns your life into a personal stock chart. Join the waitlist and help shape the app with a quick survey." />
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #0b1020;
+      --accent: #7d5dcd;
+      --accent-soft: rgba(125, 93, 205, 0.14);
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 16px 64px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .pill {
+      font-size: 12px;
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 56px;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 5vw, 44px);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      max-width: 30rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #e6ddff;
+      margin-bottom: 14px;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    input[type="email"],
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      outline: none;
+      font-size: 14px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #6b7280;
+    }
+
+    button.primary {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #6affe0, #5627ad);
+      color: #0a1024;
+      font-weight: 600;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .helper-text {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .mockup {
+      background: radial-gradient(circle at top left, #5fedd322, transparent 55%);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      padding: 16px 16px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mockup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .mockup-chart {
+      border-radius: 16px;
+      border: 1px dashed #1f2937;
+      padding: 16px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .mockup-line {
+      height: 120px;
+      border-radius: 10px;
+      background:
+        linear-gradient(to top, rgba(127,93,205,0.35), transparent),
+        url("data:image/svg+xml,%3Csvg width='260' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline fill='none' stroke='%237d5dcd' stroke-width='2' points='0,80 40,60 80,70 120,40 160,30 200,55 240,20 260,35'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      margin-bottom: 10px;
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .three-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 16px;
+      font-size: 14px;
+    }
+
+    .card h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+
+    ul li::before {
+      content: "• ";
+      color: var(--accent);
+    }
+
+    .faq-item {
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .faq-item h3 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .survey-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .survey-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .rating-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .rating-row input[type="range"] {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">VIDA</div>
+      <div class="pill">The market of your life</div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div>
+          <div class="hero-badge">New • Waitlist open</div>
+          <h1 class="hero-title">
+            Track your <span>life</span> like a stock.
+          </h1>
+          <p class="hero-sub">
+            VIDA turns your life into a personal stock chart. Log real moments, watch your “life price”
+            move, and get insights into your highs, lows, and long-term growth.
+          </p>
+
+          <!-- WAITLIST FORM -->
+          <form class="waitlist-form" action="#" method="post">
+            <div class="form-row">
+              <input type="email" name="email" placeholder="Enter your email to join the waitlist" required />
+              <button class="primary" type="submit">Join the waitlist</button>
+            </div>
+            <p class="helper-text">
+              Private beta coming soon • No spam, just VIDA updates.
+            </p>
+          </form>
+        </div>
+
+        <div class="mockup">
+          <div class="mockup-header">
+            <span>VIDA • LIFE / USD</span>
+            <span>+12.3% this month</span>
+          </div>
+          <div class="mockup-chart">
+            <div class="mockup-line"></div>
+            <div class="muted">
+              Your last 30 days. Each dot is a life event: wins, setbacks, and everything in between.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="section" id="how">
+        <h2 class="section-title">How VIDA works</h2>
+        <div class="three-col">
+          <div class="card">
+            <h3>1. Log your life events</h3>
+            <p class="muted">
+              Add milestones, mood shifts, and key moments. Each one nudges your “life stock price”
+              up or down.
+            </p>
+          </div>
+          <div class="card">
+            <h3>2. Watch your life chart move</h3>
+            <p class="muted">
+              Your journey shows up as a stock-style chart, with trends, highs, lows, and volatility
+              you can actually see.
+            </p>
+          </div>
+          <div class="card">
+            <h3>3. Get AI-powered insights</h3>
+            <p class="muted">
+              Weekly and monthly summaries highlight what’s driving your growth and where you
+              tend to dip.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY VIDA -->
+      <section class="section" id="why">
+        <h2 class="section-title">Not another social feed. Not another boring tracker.</h2>
+        <div class="two-col">
+          <div class="card">
+            <h3>Typical social media</h3>
+            <ul class="muted">
+              <li>Curated highlights only</li>
+              <li>No real sense of growth over time</li>
+              <li>Low privacy by default</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>VIDA</h3>
+            <ul class="muted">
+              <li>Visualizes your whole journey, not just your best moments</li>
+              <li>Helps you see patterns in your highs and lows</li>
+              <li>Privacy controls for public, friends-only, or private events</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHO IT'S FOR -->
+      <section class="section" id="who">
+        <h2 class="section-title">Who VIDA is for</h2>
+        <div class="three-col">
+          <div class="card">
+            <h3>Finance & data people</h3>
+            <p class="muted">
+              You already track your portfolio. Now you can track the asset that matters most: your life.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Goal chasers</h3>
+            <p class="muted">
+              If you love Strava, Notion, or habit apps, VIDA zooms out and shows how it all connects.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Reflective humans</h3>
+            <p class="muted">
+              You want more than likes. You want meaning, patterns, and a narrative of your growth.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECOND CTA -->
+      <section class="section" id="cta">
+        <h2 class="section-title">Get early access</h2>
+        <p class="muted" style="margin-bottom: 16px; max-width: 32rem;">
+          We’re inviting people from the waitlist into a private beta in waves.
+          Drop your email and we’ll keep you in the loop as we get closer to launch.
+        </p>
+        <form class="waitlist-form" action="#" method="post">
+          <div class="form-row">
+            <input type="email" name="email" placeholder="Email address" required />
+            <button class="primary" type="submit">Join the waitlist</button>
+          </div>
+          <p class="helper-text">
+            Optional: once you confirm, tell us why you want VIDA so we can build around real stories.
+          </p>
+        </form>
+      </section>
+
+      <!-- SURVEY SECTION -->
+      <section class="section" id="survey">
+        <h2 class="section-title">Help us shape VIDA</h2>
+        <p class="muted" style="margin-bottom: 16px; max-width: 34rem;">
+          Answer a few quick questions so we can build the app around what actually matters to you.
+        </p>
+
+        <form class="card" action="#" method="post">
+          <div class="survey-grid">
+            <div>
+              <label for="why" class="helper-text">Why does VIDA interest you?</label><br />
+              <textarea id="why" name="why" rows="4" placeholder="Be honest. What made you curious about tracking your life like a stock?"></textarea>
+            </div>
+
+            <div>
+              <label for="features" class="helper-text">Which features excite you most?</label><br />
+              <select id="features" name="features">
+                <option value="">Select one</option>
+                <option value="life-chart">Life chart visualization</option>
+                <option value="insights">AI insights & summaries</option>
+                <option value="journaling">Journaling / logging moments</option>
+                <option value="social">Social / friends view</option>
+                <option value="privacy">Strong privacy controls</option>
+              </select>
+              <br /><br />
+              <label class="helper-text">How likely are you to use VIDA when it launches?</label>
+              <div class="rating-row">
+                <span>1</span>
+                <input type="range" name="likelihood" min="1" max="10" value="7" />
+                <span>10</span>
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <label for="survey-email" class="helper-text">Email (optional, if different from waitlist email)</label><br />
+          <input type="email" id="survey-email" name="survey_email" placeholder="you@example.com" />
+
+          <br /><br />
+          <button class="primary" type="submit">Submit survey</button>
+          <p class="helper-text" style="margin-top: 8px;">
+            Your answers are anonymous unless you choose to share your email.
+          </p>
+        </form>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <h2 class="section-title">FAQ</h2>
+        <div class="faq-item">
+          <h3>When is VIDA launching?</h3>
+          <p class="muted">
+            We’re targeting a beta launch and will invite people from the waitlist in waves, starting with the earliest signups.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3>Is my data private?</h3>
+          <p class="muted">
+            Yes. You decide whether each event is public, friends-only, or private. Your life is yours—
+            VIDA is built with privacy and control at the core.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3>Is VIDA free?</h3>
+          <p class="muted">
+            The core experience will be free. We plan to add optional premium features later for deeper analytics and customization.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3>Is this just for positive moments?</h3>
+          <p class="muted">
+            No. Your chart is shaped by both highs and lows. VIDA is about an honest story of your life,
+            not just a highlight reel.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>VIDA – The market of your life</span>
+      <span>
+        <a href="#top">Back to top</a> •
+        <a href="#">Instagram</a> •
+        <a href="#">TikTok</a> •
+        <a href="mailto:hello@vidaapp.com">Contact</a>
+      </span>
+    </footer>
+  </div>
+</body>
+</html>
