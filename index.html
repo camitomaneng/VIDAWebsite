@@ -113,6 +113,37 @@
       margin-bottom: 8px;
     }
 
+    .waitlist-embed {
+      margin-bottom: 8px;
+    }
+
+    .waitlist-embed .formkit-form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      color: var(--text);
+    }
+
+    .waitlist-embed .formkit-input,
+    .waitlist-embed .formkit-select,
+    .waitlist-embed textarea,
+    .waitlist-embed input {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+    }
+
+    .waitlist-embed .formkit-submit {
+      background: linear-gradient(135deg, #6affe0, #5627ad);
+      color: #0a1024;
+      border: none;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 10px 20px;
+    }
+
     input[type="email"],
     input[type="text"],
     textarea,
@@ -324,17 +355,13 @@
             move, and get insights into your highs, lows, and long-term growth.
           </p>
 
-          <!-- WAITLIST FORM -->
-          <form class="waitlist-form" action="#" method="post">
-            <div class="form-row">
-              <input type="email" name="email" placeholder="Enter your email to join the waitlist" required />
-              <button class="primary" type="submit">Join the waitlist</button>
-            </div>
-            <p class="helper-text">
-              Private beta coming soon • No spam, just VIDA updates.
-            </p>
-          </form>
-          <script async data-uid="39813a8276" src="https://vida-9.kit.com/39813a8276/index.js"></script>
+          <!-- WAITLIST FORM (KIT embed) -->
+          <div class="waitlist-embed">
+            <script async data-uid="39813a8276" src="https://vida-9.kit.com/39813a8276/index.js"></script>
+          </div>
+          <p class="helper-text">
+            Private beta coming soon • No spam, just VIDA updates.
+          </p>
         </div>
 
         <div class="mockup">
@@ -434,16 +461,12 @@
           We’re inviting people from the waitlist into a private beta in waves.
           Drop your email and we’ll keep you in the loop as we get closer to launch.
         </p>
-        <form class="waitlist-form" action="#" method="post">
-          <div class="form-row">
-            <input type="email" name="email" placeholder="Email address" required />
-            <button class="primary" type="submit">Join the waitlist</button>
-          </div>
-          <p class="helper-text">
-            Optional: once you confirm, tell us why you want VIDA so we can build around real stories.
-          </p>
-        </form>
-        <script async data-uid="39813a8276" src="https://vida-9.kit.com/39813a8276/index.js"></script>
+        <div class="waitlist-embed">
+          <script async data-uid="39813a8276" src="https://vida-9.kit.com/39813a8276/index.js"></script>
+        </div>
+        <p class="helper-text">
+          Optional: once you confirm, tell us why you want VIDA so we can build around real stories.
+        </p>
       </section>
 
       <!-- SURVEY SECTION -->
